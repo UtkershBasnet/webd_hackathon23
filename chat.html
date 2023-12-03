@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif; /* Use a suitable font */
+            
+        }
+
+        .full-page-div {
+            position: relative;
+            height: 100vh;
+            width:100%;
+            background-color: #f0f0f0; /* Set the background color as per your preference */
+            /* Add any other styles as needed */
+            display: flex;
+            flex-direction: column; /* Stack the child elements vertically */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden; /* Prevents the image from overflowing the div */
+        }
+
+        .full-page-div img {
+            object-fit: cover; /* Cover the container without distorting the aspect ratio */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            filter: brightness(87%);
+            top: 0;
+            left: 0;
+        }
+
+        .navbar {
+            padding:8px 45px;
+            
+            width: 100%;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2; /* Ensure the navbar is above the image */
+            display: flex;
+            justify-content: space-between; /* Separate company name and links */
+            align-items: center;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .company-name {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 30px; /* Adjust the margin as needed */
+            padding: 50;
+        }
+
+        .navbar-links {
+            display: flex;
+        }
+        
+        .navbar a {
+            color: #fff; /* Set the text color of the navbar links */
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #555; /* Set the background color on hover */
+        }
+
+        .navbar.scrolled {
+            background-color: #39A7FF; /* Change the background color when scrolled */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .text-overlay {
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            height: 70vh;
+            flex-direction: column;
+        }
+        .text-overlay h1{
+            font-weight: bold;
+            font-size: 65px;
+            color: #f0f0f0;
+            margin-bottom: 0px;
+
+        }
+        .text-overlay p{
+            color: #f0f0f0;
+            font-weight: 700;
+        }
+        .megamenu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .megamenu-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width:auto;
+            box-shadow:#f0f0f0;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .megamenu:hover .megamenu-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .column {
+            width: 30%; /* Adjust the width as needed */
+            margin: 10px;
+            color: #fff;
+        }
+        
+
+        .content {
+            padding: 0px;
+        }
+
+        .background-div {
+            background-color: #f8f8f8;
+            background-image: url('./img/about-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: left; /* Align text to the left */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between the main content and features */
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add styles for the content inside the div */
+        .background-div h1 {
+            color: #fff; /* Set the text color as needed */
+            text-align: center; /* Center the text */
+            padding-top: 10px; /* Adjust the padding as needed */
+        }
+        .main-container {
+            padding-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            grid-template-rows: repeat(2, 1fr); /* 2 rows */
+            gap: 20px; /* Adjust the gap between divs as needed */
+            height: 400px; /* Set the height of the main container */
+            /* Add any other styles as needed */
+        }
+
+        /* Style for each individual div */
+        .sub-div {
+            padding: 20px; /* Add padding to each div */
+            text-align: center; /* Center the content */
+            /* Add any other styles as needed */
+        }
+        
+        .about-content {
+            padding-top:40px;
+            flex-basis: 40%; /* Adjust width as needed */
+            max-width: 40%; /* Adjust maximum width as needed */
+            padding-right: 20px;
+            width: 100vw; /* Increase width on hover */
+            height: 60%;
+            height: 60vh;
+        }
+        
+        .about-button {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        }
+
+        .about-button:hover {
+            background-color: #0056b3;
+        }
+        .services {
+            background: #fff;
+            height: 50vh;
+            padding: 20px;
+            
+            text-align: center;
+            width: 97%;
+            justify-content: space-evenly;
+        }
+
+        .services-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .services-intro {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .service-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .service-card {
+            width: calc(25% - 20px); /* Adjust the width calculation based on the gap */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            background: #f9f9f9; /* Light grey background */
+        }
+
+        .service-card img {
+            width: 50px; /* Adjust the size of the icons */
+            margin-bottom: 15px; /* Space between icon and heading */
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .boxes {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #e8f4f8; /* Adjust the color to match your design */
+            padding: 10px 0;
+            height: 40vh;
+        }
+        
+        .box1 {
+            text-align: center;
+            flex-basis: 20%; /* Adjust the width of each stat */
+        }
+
+        .box1 img {
+            width: 75px; /* Adjust the size as needed */
+            height: 75px; /* Adjust the size as needed */
+            margin-bottom: 5px;
+        }
+
+
+        .box1 h3 {
+            font-size: x-large; /* Adjust the size as needed */
+            color: #333; /* Adjust the color as needed */
+            margin-bottom: 2px;
+            margin-top: 5px;
+        }
+
+        .box1 p {
+            color: #666; /* Adjust the color as needed */
+            font-size: 1rem; /* Adjust the size as needed */
+            line-height: 1.4;
+            font-style: monospace;
+        }
+        .team {
+    text-align: center;
+    padding: 50px 0;
+
+}
+.team-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.team-description {
+    margin-bottom: 40px;
+}
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+}
+.team-member {
+    position: relative;
+    width: calc(33.333% - 30px);
+    cursor: pointer;
+}
+.team-member img {
+    width: 100%;
+    display: block;
+    border-radius: 10px; /* Rounded corners for the image */
+}
+
+.member-info {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    left: 0;
+    right: 0;
+    background:whitesmoke; /* Semi-transparent background */
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    
+}
+
+.team-member:hover .member-info {
+    opacity: 1; /* Show the info on hover */
+}
+.call-button {
+    display: inline-block;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    border-color: black;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: transparent;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+}
+
+.call-button:hover {
+     border-color: whitesmoke;
+}
+.action{
+    justify-content: center;
+    text-align: center;
+    height: 40vh;
+    background-image:url(./img/image.jpg);
+    background-size: cover;
+
+}
+
+.action h2{
+    padding-top: 80px;
+    margin-top: 0px;
+    color:white;
+}
+.portfolio {
+    height: 110vh ;
+    width: 100vw;
+    text-align: center;
+    margin: 5px 5px; /* Adjust based on your layout */
+    border: 2px;
+    display: block;
+    padding: 10px;
+    
+
+}
+
+.portfolio-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.portfolio-description {
+    color: #666;
+    margin-bottom: 30px; /* Space between text and filter buttons */
+}
+
+.portfolio-filter button {
+    background-color: #e7e7e7; /* Light grey background */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.portfolio-filter button:hover {
+    background-color: #d7d7d7; /* Darker grey on hover */
+}
+
+.portfolio-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between items */
+    flex-wrap: wrap; /* Allows items to wrap to next line */
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.portfolio-item {
+    border-radius: 20px;
+    width: 30%; /* Adjust the width as needed */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px; /* Space below each item */
+}
+
+.portfolio-item img {
+    border-radius: 20px;
+    width: 100%; /* Make image fill the container */
+    height: auto; /* Keep image aspect ratio */
+    display: block; /* Remove any extra space beneath the image */
+}
+
+.team {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.team-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.team-description {
+    margin-bottom: 40px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.team-member {
+    position: relative;
+    width: calc(33.333% - 30px); /* Adjust based on the gap and number of items */
+    cursor: pointer;
+}
+
+.team-member img {
+    width: 100%;
+    display: block;
+    border-radius: 10px; /* Rounded corners for the image */
+}
+
+.member-info {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 0 0 10px 10px; /* Rounded corners at the bottom */
+}
+
+.team-member:hover .member-info {
+    opacity: 1; /* Show the info on hover */
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; /* Align to the bottom right */
+    background-color: #007bff; /* Match your color scheme */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 50%; /* Make it round */
+    cursor: pointer;
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Ensure it's above other elements */
+    font-size: 20px; /* Adjust arrow size */
+    line-height: 20px; /* Center the arrow vertically */
+    height: 40px; /* Size of the button */
+    width: 40px; /* Size of the button */
+    text-align: center; /* Center the arrow horizontally */
+}
+
+/* Optionally, add :hover and :focus styles for better user experience */
+#back-to-top:hover,
+#back-to-top:focus {
+    background-color: #0056b3;
+    outline: none; /* Removes the outline on focus for aesthetics */
+}
+
+.contact-section {
+    margin-top: 600px;
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    padding: 50px 20px;
+    background: #f0f0f0; /* Example background color */
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-address,
+.contact-email,
+.contact-phone {
+    margin-bottom: 20px;
+}
+
+
+.contact-form {
+    max-width: px;
+    margin-left: auto; /* Align the form on the right */
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+        
+    </style>
+
+</head>
+<body>
+    <div id="home" class="full-page-div">
+        <!-- Place an image inside the full-page div -->
+        <img src="./img/image.jpg" alt="Your Image Description">
+        <!-- Navigation bar -->
+        <nav class="navbar" id="navbar">
+            <div class="company-name">COMPANY NAME</div>
+            <div class="navbar-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown">Dropdown</a>
+                    <div class="dropdown-content">
+                        <a href="#item1">Item</a>
+                        <a href="#item2">Item</a>
+                        <a href="#item3">Item</a>
+                    </div>
+                </div>
+                <div class="megamenu">
+                    <a href="#" class="megamenu">Megamenu</a>
+                    <div class="megamenu-content">
+                        <div class="row">
+                            <div class="column">
+                                <h3>Section 1</h3>
+                                <a href="#item1">Item</a>
+                                <a href="#item2">Item</a>
+                                <a href="#item3">Item</a>
+                            </div>
+                            <div class="column">
+                                <h3>Section 2</h3>
+                                <a href="#item4">Item</a>
+                                <a href="#item5">Item</a>
+                                <a href="#item6">Item</a>
+                            </div>
+                            <div class="column">
+                                <h3>Section 3</h3>
+                                <a href="#item7">Item</a>
+                                <a href="#item8">Item</a>
+                                <a href="#item9">Item</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Overlay text on the image -->
+        <div class="text-overlay">
+            <h1>LOREM IPSUM</h1>
+            <p>LOREM IPSUM LOREM IPSUM</p>
+        </div>
+    </div>
+        
+    <div id="about" class="background-div">
+        <!-- Add content inside the div, such as a heading -->
+        <div class="about-content">
+            <h2>Voluptatem dignissimos provident quasi</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit.</p>
+            <a href="#" class="about-button">About us</a>
+        </div>
+        <div class="main-container"> 
+            <!-- First div -->
+        <div class="sub-div">
+            <!-- Content for the first div -->
+            <img src="img/shield_FILL0_wght400_GRAD0_opsz24.svg" alt="Icon 1">
+            <h2>Div1</h2>
+            <p>This is the content for the first div.</p>
+        </div>
+
+        <!-- Second div -->
+        <div class="sub-div">
+            <!-- Content for the second div -->
+            <img src="img/photo_library_FILL0_wght400_GRAD0_opsz24.svg" alt="Icon 2">
+            <h2>Div 2</h2>
+            <p>This is the content for the second div.</p>
+        </div>
+
+        <!-- Third div -->
+        <div class="sub-div">
+            <!-- Content for the third div -->
+            <img src="img/feed_FILL0_wght400_GRAD0_opsz24.svg" alt="Icon 3">
+            <h2>Div 3</h2>
+            <p>This is the content for the third div.</p>
+        </div>
+
+        <!-- Fourth div -->
+        <div class="sub-div">
+            <!-- Content for the fourth div -->
+            <img src="img/deployed_code_FILL0_wght400_GRAD0_opsz24.svg" alt="Icon 4">
+            <h2>Div 4</h2>
+            <p>This is the content for the fourth div.</p>
+        </div>
+        </div>
+    </div>
+    <div id="services" class="section services">
+        <h2 class="services-title">Services</h2>
+        <p class="services-intro">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem...</p>
+        <div class="service-cards">
+          <div class="service-card">
+            <img src="./img/sticky_note_2_FILL0_wght400_GRAD0_opsz24.svg" alt="Service 1">
+            <h3>Lorem Ipsum</h3>
+            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+          </div>
+          <div class="service-card">
+            <img src="img/sports_soccer_FILL0_wght400_GRAD0_opsz24.svg" alt="Service 2">
+            <h3>Sed ut perspiciatis</h3>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+          </div>
+          <div class="service-card">
+            <img src="img/speed_FILL0_wght400_GRAD0_opsz24.svg" alt="Service 3">
+            <h3>Magni Dolores</h3>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+          </div>
+          <div class="service-card">
+            <img src=" img/public_FILL0_wght400_GRAD0_opsz24.svg" alt="Service 4">
+            <h3>Nemo Enim</h3>
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
+          </div>
+        </div>
+    </div>
+    <div class="boxes">
+        <div class="box1">
+            <img src="img/sentiment_satisfied_FILL0_wght400_GRAD0_opsz24.svg" alt="Happy Clients">
+            <h2>256</h2>
+            <span>
+                Happy clients
+            </span>
+        </div>
+        <div class="box1">
+            <img src="img/sticky_note_2_FILL0_wght400_GRAD0_opsz24.svg" alt="Projects">
+            <h2>521</h2>
+            <span>
+                Projects adipisci atque cum quia aut
+            </span>
+        </div>
+        <div class="box1">
+            <img src="img/headset_mic_FILL0_wght400_GRAD0_opsz24.svg" alt="Support">
+            <h2>741</h2>
+            <span>
+                Hours Of Support aut commodi quaerat
+            </span>
+        </div>
+        <div class="box1">
+            <img src="img/group_FILL0_wght400_GRAD0_opsz24.svg" alt="Workers">
+            <h2>23</h2>
+            <span>
+                Hard Workers rerum asperiores dolor
+            </span>
+        </div>
+    </div>
+
+    <div class="action">
+        <h2>Call To Action</h2>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugi</p>
+        <a href="#contact" class="call-button">Call to action</a>
+    </div>
+
+    <div id="team" class="section team">
+        <h2 class="team-title">Team</h2>
+        <p class="team-description">This is the team</p>
+        <div class="team-members">
+          <div class="team-member">
+            <img src="img/team-1.jpg" alt="Walter White">
+            <div class="member-info">
+              <h3>Walter White</h3>
+              <p>Chief Executive Officer</p>
+              <div class="social-links">
+                <!-- Insert social media icons here -->
+              </div>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="img/team-2.jpg" alt="Sarah Johnson">
+            <div class="member-info">
+              <h3>Sarah Johnson</h3>
+              <p>Product Manager</p>
+              <div class="social-links">
+                <!-- Insert social media icons here -->
+              </div>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="img/team-3.jpg" alt="William Anderson">
+            <div class="member-info">
+              <h3>William Anderson</h3>
+              <p>CTO</p>
+              <div class="social-links">
+                <!-- Insert social media icons here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="portfolio" class="section portfolio">
+        <h2 class="portfolio-title">Portfolio</h2>
+        <p class="portfolio-description">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem...</p>
+        <div class="portfolio-filter">
+          <button>All</button>
+          <button>App</button>
+          <button>Card</button>
+          <button>Web</button>
+        </div>
+        <div class="portfolio-gallery">
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-1.jpg" alt="PlayStation">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-2.jpg" alt="Travel Cup">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-3.jpg" alt="Polaroid Camera">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-4.jpg" alt="Pot">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-5.jpg" alt="Perfume">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-6.jpg" alt="Oil">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-7.jpg" alt="water">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-8.jpg" alt="desk">
+          </div>
+          <div class="portfolio-item">
+            <img src="img/portfolio/portfolio-9.jpg" alt="plate">
+          </div>
+        </div>
+        <div style="clear: both"></div>
+      </div>
+      <span id="gap">
+      
+      </span>
+      <button id="back-to-top" title="Go to top">&#x2191;</button>
+      
+      <section id="contact" class="contact-section">
+        <header class="contact-header">
+          <h2>Contact</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem...</p>
+        </header>
+      
+        <div id="contact" class="contact-details">
+          <div class="contact-address">
+            <span class="icon-location"><!-- Insert location icon here --></span>
+            <h3>Our Address</h3>
+            <p>A108 Adam Street, New York, NY 535022</p>
+            <!-- Embed map iframe here -->
+          </div>
+      
+          <div class="contact-email">
+            <span class="icon-email"><!-- Insert email icon here --></span>
+            <h3>Email Us</h3>
+            <p>contact@example.com</p>
+          </div>
+      
+          <div class="contact-phone">
+            <span class="icon-phone"><!-- Insert phone icon here --></span>
+            <h3>Call Us</h3>
+            <p>+1 5589 55488 55</p>
+          </div>
+        </div>
+      
+        <form class="contact-form">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+          <input type="email" id="email" name="email" placeholder="Your Email" required>
+          <input type="text" id="subject" name="subject" placeholder="Subject" required>
+          <textarea id="message" name="message" placeholder="Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+    <script>
+        window.onscroll = function() {
+            var navbar = document.getElementById("navbar");
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        };
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', (event) => {
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.onscroll = function() {
+        if (window.pageYOffset > 100) { // If the scroll is more than 100px
+            backToTopButton.style.display = "block";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    };
+
+    backToTopButton.onclick = function() {
+        window.scrollTo({top: 0, behavior: 'smooth'}); // Smooth scroll to top
+    };
+});
+    </script>
+</body>
+</html>
